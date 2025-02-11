@@ -1,9 +1,20 @@
 
-# WordCount-Using-MapReduce-Hadoop
+# Hadoop Word Count
 
-This repository is designed to test MapReduce jobs using a simple word count dataset.
+## Project Overview
+This project implements a simple **Word Count** program using Hadoop MapReduce. It processes a text file, counts the occurrences of each word, and outputs the results in descending order of frequency.
 
-## Objectives
+## Approach and Implementation
+
+### **Mapper (`WordMapper.java`)**
+- Reads each line of the input file.
+- Tokenizes words using spaces as delimiters.
+- Emits each word as a key with a count of `1` (`<word, 1>`).
+
+### **Reducer (`WordReducer.java`)**
+- Receives words grouped by key.
+- Aggregates the count for each word.
+- Outputs the final word count.
 
 By completing this activity, students will:
 
@@ -36,7 +47,7 @@ mvn install
 Move the generated JAR file to a shared folder for easy access:
 
 ```bash
-mv target/*.jar shared-folder/input/code/
+mv target/*.jar shared-folder/input/data/
 ```
 
 ### 4. **Copy JAR to Docker Container**
@@ -44,7 +55,7 @@ mv target/*.jar shared-folder/input/code/
 Copy the JAR file to the Hadoop ResourceManager container:
 
 ```bash
-docker cp shared-folder/input/code/<your-jar-file>.jar resourcemanager:/opt/hadoop-3.2.1/share/hadoop/mapreduce/
+docker cp shared-folder/input/data/WordCountUsingHadoop-0.0.1-SNAPSHOT.jar resourcemanager:/opt/hadoop-3.2.1/share/hadoop/mapreduce/
 ```
 
 ### 5. **Move Dataset to Docker Container**
@@ -88,7 +99,7 @@ hadoop fs -put ./input.txt /input/dataset
 Run your MapReduce job using the following command:
 
 ```bash
-hadoop jar /opt/hadoop-3.2.1/share/hadoop/mapreduce/<your-jar-file>.jar com.example.controller.Controller /input/dataset/input.txt /output
+hadoop jar /opt/hadoop-3.2.1/share/hadoop/mapreduce/WordCountUsingHadoop-0.0.1-SNAPSHOT.jar com.example.controller.Controller /input/dataset/input.txt /output
 ```
 
 ### 9. **View the Output**
